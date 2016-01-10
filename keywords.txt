@@ -1,15 +1,18 @@
 #######################################
-# Datatypes (KEYWORD1)
+# Data types (KEYWORD1)
 #######################################
 Blynk	KEYWORD3
-WidgetTerminal	KEYWORD1
-WidgetSD	KEYWORD1
+WidgetBridge	KEYWORD1
 WidgetLCD	KEYWORD1
+WidgetLED	KEYWORD1
+WidgetSD	KEYWORD1
+WidgetTerminal	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 begin	KEYWORD2
+config	KEYWORD2
 run	KEYWORD2
 connect	KEYWORD2
 connected	KEYWORD2
@@ -24,6 +27,8 @@ BLYNK_WRITE	KEYWORD2
 BLYNK_READ_DEFAULT	KEYWORD2
 BLYNK_WRITE_DEFAULT	KEYWORD2
 BLYNK_ATTACH_WIDGET	KEYWORD2
+BLYNK_CONNECTED	KEYWORD2
+#BLYNK_DISCONNECTED	KEYWORD2
 
 # Variables binding
 BLYNK_VAR_INT	KEYWORD2
@@ -34,10 +39,12 @@ BLYNK_VAR_STRING	KEYWORD2
 # Special defines
 BLYNK_DEBUG	KEYWORD2
 BLYNK_PRINT	KEYWORD2
+BLYNK_HEARTBEAT	KEYWORD2
 BLYNK_EXPERIMENTAL	KEYWORD2
 BLYNK_NO_BUILTIN	KEYWORD2
 BLYNK_NO_FLOAT	KEYWORD2
 BLYNK_USE_DIRECT_CONNECT	KEYWORD2
+BLYNK_MAX_SENDBYTES	KEYWORD2
 
 #######################################
 # Literals (LITERAL1)

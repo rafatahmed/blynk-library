@@ -13,21 +13,23 @@
  * This example code is in public domain.
  *
  **************************************************************
- * This example runs directly on ESP8266 chip.
  *
- * You need to install this for ESP8266 development:
- *   https://github.com/esp8266/Arduino
+ * This example shows how to use Arduino.org Ethernet Shield 2 (W5500)
+ * to connect your project to Blynk.
+ * Feel free to apply it to any other example. It's simple!
  *
- * Please be sure to select hte right ESP8266 module
- * in the Tools -> Board menu!
+ * NOTE: You may have to install Arduino.ORG IDE to get it working:
+ *         http://www.arduino.org/software
  *
- * Change WiFi ssid, pass, and Blynk auth token to run :)
+ *       Pins 10, 11, 12 and 13 are reserved for Ethernet module.
+ *       DON'T use them in your sketch directly!
  *
  **************************************************************/
 
 #define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
-#include <ESP8266WiFi.h>
-#include <BlynkSimpleEsp8266.h>
+#include <SPI.h>
+#include <Ethernet2.h>
+#include <BlynkSimpleEthernet2.h>
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
@@ -36,7 +38,11 @@ char auth[] = "YourAuthToken";
 void setup()
 {
   Serial.begin(9600);
-  Blynk.begin(auth, "ssid", "pass");
+  Blynk.begin(auth);
+  // You can also specify server.
+  // For more options, see BoardsAndShields/Arduino_Ethernet_Manual example
+  //Blynk.begin(auth, "your_server.com", 8442);
+  //Blynk.begin(auth, IPAddress(192,168,1,100), 8888);
 }
 
 void loop()

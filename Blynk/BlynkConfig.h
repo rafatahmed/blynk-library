@@ -22,10 +22,12 @@
  * Professional settings
  ***************************************************/
 // Library version.
-#define BLYNK_VERSION        "0.3.2-beta"
+#define BLYNK_VERSION        "0.3.3-beta"
 
 // Heartbeat period in seconds.
+#ifndef BLYNK_HEARTBEAT
 #define BLYNK_HEARTBEAT      10
+#endif
 
 // Network timeout in milliseconds.
 #ifndef BLYNK_TIMEOUT_MS
@@ -40,6 +42,11 @@
 // Limit the incoming command length.
 #ifndef BLYNK_MAX_READBYTES
 #define BLYNK_MAX_READBYTES  256
+#endif
+
+// Limit the outgoing command length.
+#ifndef BLYNK_MAX_SENDBYTES
+#define BLYNK_MAX_SENDBYTES  128
 #endif
 
 // Uncomment to disable built-in analog and digital operations.

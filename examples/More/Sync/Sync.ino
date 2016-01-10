@@ -13,15 +13,17 @@
  * This example code is in public domain.
  *
  **************************************************************
- * This example shows how to configure static IP with Ethernet.
- * Be sure to check ordinary Ethernet example first!!!
+ * You can synchronize the state of widgets with hardware,
+ * event if hardware resets or looses connection temporarily
  *
- * NOTE: Pins 10, 11, 12 and 13 are reserved for Ethernet module.
- *       DON'T use them in your sketch directly!
+ * App dashboard setup:
+ *   Slider widget (0...100) on V0
+ *   Slider widget (0...100) on V2
+ *   Button widget on digital pin (conneced to an LED)
  *
  **************************************************************/
 
-#define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
+#define BLYNK_PRINT Serial
 #include <SPI.h>
 #include <Ethernet.h>
 #include <BlynkSimpleEthernet.h>
@@ -30,21 +32,32 @@
 // Go to the Project Settings (nut icon).
 char auth[] = "YourAuthToken";
 
-IPAddress server_ip (10, 0, 0, 10);
-
-// Mac address should be different for each device in your LAN
-byte arduino_mac[] = { 0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
-IPAddress arduino_ip ( 10,   0,   0,  20);
-IPAddress dns_ip     (  8,   8,   8,   8);
-IPAddress gateway_ip ( 10,   0,   0,   1);
-IPAddress subnet_mask(255, 255, 255,   0);
-
 void setup()
 {
-  Serial.begin(9600);
-  Blynk.begin(auth, server_ip, 8442, arduino_ip, dns_ip, gateway_ip, subnet_mask, arduino_mac);
-  // Or like this:
-  //Blynk.begin(auth, "cloud.blynk.cc", 8442, arduino_ip, dns_ip, gateway_ip, subnet_mask, arduino_mac);
+  Serial.begin(9600); // See the connection status in Serial Monitor
+  Blynk.begin(auth);
+}
+
+// Keep this flag not to re-sync on every reconnection
+bool isFirstConnect = true;
+
+// This function will run every time Blynk connection is established
+BLYNK_CONNECTED() {
+  if (isFirstConnect) {
+    Blynk.syncAll();
+    isFirstConnect = false;
+  }
+
+  // You can also update some virtual pin
+  // I'll push uptime, just for this example
+  int value = millis() / 1000;
+  Blynk.virtualWrite(V2, value);
+}
+
+BLYNK_WRITE(V0)
+{
+  int value = param.asInt();
+  Blynk.virtualWrite(V2, value);
 }
 
 void loop()
